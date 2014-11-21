@@ -1,0 +1,40 @@
+body {
+	background: cornflowerblue;
+}
+
+div {
+	background: white;
+	border: 1px solid black;
+	border-radius: 10px;
+	width: 100%;
+	height: 40px;
+}
+
+div:hover{
+	background: navajowhite;
+	font-weight: bold;
+	font-color: orange;
+}
+
+input {
+	width: 80%;
+}
+
+li {
+	float: right;
+	list-style: none;
+	font-style: italic;
+}
+
+p {
+	background: white;
+}
+
+.refresh {
+	background: orange;
+}
+
+.tweet {
+	float: right;
+	width: 18%;
+}

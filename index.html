@@ -3,12 +3,34 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+	<link href="style.css" rel="stylesheet">
   </head>
   <body>
-	  <button>SHOW NEW TWEETS</button>
+	  <h1>TWEETLER</h2>
+	  <h4>The much less cool version of Twitter</h4>
+	  <p><input type='text' placeholder='ADD YOUR OWN TWEET!'><button class='tweet'>tweet</button></p>
+	  <button class='refresh'>SHOW NEW TWEETS</button>
 	  <nav></nav>
 
-    <script>
+    <script>	
+
+    $(document).ready(function(){
+			visitor = prompt("What is your username?");
+			streams.users[visitor] = [];
+			showTweets();
+
+	  $('button').on('click', function(){
+			showTweets();
+	  });
+	  
+	  $('.tweet').on('click', function(){
+			$message = $('input').val();
+			writeTweet($message);
+			showTweets();
+			$('input').val('');
+	  })
+	  
+    });	  
 	
 	var $body = $('nav');
 	function showTweets (){
@@ -20,7 +42,6 @@
 			var tweet = streams.home[index];
 			var $tweet = $('<div></div>');
 			var $date = $('<li></li>');
-			var $guy = $('<div></div').html(tweet.user)
 			$tweet.text('@' + tweet.user + ': ' + tweet.message).addClass(tweet.user);
 			$date.text(time.getMinutes() - tweet.created_at.getMinutes() + ' min ago');
 			$tweet.appendTo($body);
@@ -28,24 +49,16 @@
 			index -= 1;
 		}
 	}	
-
-      $(document).ready(function(){
-		showTweets();
-      });
-
-	  $('button').on('click', function(){
-		  showTweets();
-	  });
 	  
   	  $('nav').on('click', 'div', function(){
   	  	$body.html('');
-		var $user = $(this).attr('class')
+		var $user = $(this).attr('class')			
 		var index = streams.users[$user].length - 1;
 		while(index >= 0){
+			var time = new Date			
 			var tweet = streams.users[$user][index];
 			var $tweet = $('<div></div>');
-			var $date = $('<div></div>');
-			var time = new Date
+			var $date = $('<li></li>');
 			$tweet.text('@' + $user + ': ' + tweet.message).addClass('user');
 			$date.text(time.getMinutes() - tweet.created_at.getMinutes() + ' min ago');
 			$tweet.appendTo($body);
